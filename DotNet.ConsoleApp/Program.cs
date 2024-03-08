@@ -3,6 +3,7 @@
 
 //ConnectionStringBuilder
 using DotNet.ConsoleApp.AdoDotNet;
+using DotNet.ConsoleApp.Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -68,4 +69,13 @@ AdoDotNetExamples AdoDotNet = new AdoDotNetExamples();
 //AdoDotNet.Create("KHL", "Yangon", "Clothes");
 //AdoDotNet.Update(6,"KhantHtetLin", "Mandalay", "Jeans");
 //AdoDotNet.Update(7,"KhantHtetLin", "Mandalay", "Jeans");
-AdoDotNet.Delete(6);
+//AdoDotNet.Delete(6);
+
+//Dapper
+DapperExamples Dapper = new DapperExamples();
+//Dapper.Read();
+//Dapper.Edit(1);
+//Dapper.Edit(6);
+//Dapper.Create("Hla Hla", "Hlaing", "Oil");
+//Dapper.Update(7,"Kyaw Kyaw", "SanChaung", "T-Shirt");
+Dapper.Delete(7);
