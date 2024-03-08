@@ -2,6 +2,7 @@
 //Console.WriteLine("Hello, World!");
 
 //ConnectionStringBuilder
+using DotNet.ConsoleApp.AdoDotNet;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -31,30 +32,40 @@ using System.Data.SqlClient;
 // }
 
 //Using SQL Sentences
-SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
-Build.DataSource = ".";
-Build.InitialCatalog = "DotNet";
-Build.UserID = "sa";
-Build.Password = "sasa@123";
+//SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
+//Build.DataSource = ".";
+//Build.InitialCatalog = "DotNet";
+//Build.UserID = "sa";
+//Build.Password = "sasa@123";
 
-string query = @"SELECT [Id]
-      ,[Name]
-      ,[Address]
-      ,[Description]
-  FROM [dbo].[DotNetT]";//Get data from table
-SqlConnection Connect = new SqlConnection(Build.ConnectionString);//Connect Database
+//string query = @"SELECT [Id]
+//      ,[Name]
+//      ,[Address]
+//      ,[Description]
+//  FROM [dbo].[DotNetT]";//Get data from table
+//SqlConnection Connect = new SqlConnection(Build.ConnectionString);//Connect Database
 
-Connect.Open();//DataBase Open 
-Connect.Close();//Database Close
+//Connect.Open();//DataBase Open 
+//Connect.Close();//Database Close
 
-SqlCommand Cmd = new SqlCommand(query, Connect);
-SqlDataAdapter Adapter = new SqlDataAdapter(Cmd);
-DataTable Table = new DataTable();
-Adapter.Fill(Table);
-foreach (DataRow DR in Table.Rows)
-{
-    Console.WriteLine(DR["Id"]);
-    Console.WriteLine(DR["Name"]);
-    Console.WriteLine(DR["Address"]);
-    Console.WriteLine(DR["Description"]);
-}
+//SqlCommand Cmd = new SqlCommand(query, Connect);
+//SqlDataAdapter Adapter = new SqlDataAdapter(Cmd);
+//DataTable Table = new DataTable();
+//Adapter.Fill(Table);
+//foreach (DataRow DR in Table.Rows)
+//{
+//    Console.WriteLine(DR["Id"]);
+//    Console.WriteLine(DR["Name"]);
+//    Console.WriteLine(DR["Address"]);
+//    Console.WriteLine(DR["Description"]);
+//}
+
+//AdoDotNet
+AdoDotNetExamples AdoDotNet = new AdoDotNetExamples();
+//AdoDotNet.Read();
+//AdoDotNet.Edit(1);
+//AdoDotNet.Edit(6);
+//AdoDotNet.Create("KHL", "Yangon", "Clothes");
+//AdoDotNet.Update(6,"KhantHtetLin", "Mandalay", "Jeans");
+//AdoDotNet.Update(7,"KhantHtetLin", "Mandalay", "Jeans");
+AdoDotNet.Delete(6);
