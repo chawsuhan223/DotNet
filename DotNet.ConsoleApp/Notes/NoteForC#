@@ -1,3 +1,7 @@
+First Process
+
+Add Nuget Package => SqlConnection
+
 SqlConnectionStringBuilder connect DataBase and Table
 
 1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
@@ -14,6 +18,49 @@ Name1.Password =Password;
 
 4)select data from table
 string query = "select * from TableName";
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(Name2,query);//need where table
+SqlAdater Name4 = new SqlAdater();
+
+DataTable Name5 = new DataTable();
+Name4.fill(Name5);
+
+Name2.Close();
+
+foreach(DataRow Name6 in Name5.Rows)
+{
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+}
+
+Another process
+
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"SELECT [Id]
+      ,[Name]
+      ,[Address]
+      ,[Description]
+  FROM [dbo].[DotNetT]";
 
 SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
 Name2.Open();
