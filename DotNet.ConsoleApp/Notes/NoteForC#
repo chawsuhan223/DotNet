@@ -23,7 +23,7 @@ SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
 Name2.Open();
 
 3)Command
-SqlCommand Name3 = new SqlCommand(Name2,query);//need where table
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
 SqlAdater Name4 = new SqlAdater();
 
 DataTable Name5 = new DataTable();
@@ -66,7 +66,7 @@ SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
 Name2.Open();
 
 3)Command
-SqlCommand Name3 = new SqlCommand(Name2,query);//need where table
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
 SqlAdater Name4 = new SqlAdater();
 
 DataTable Name5 = new DataTable();
@@ -80,3 +80,56 @@ foreach(DataRow Name6 in Name5.Rows)
 	Console.WriteLine(Name6[filed]);
 	Console.WriteLine(Name6[filed]);
 }
+
+
+For AdoDotNet
+
+ DOn't  need to add Package 
+
+
+FOR READ (Don't need Parameter)
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"SELECT [Id]
+      ,[Name]
+      ,[Address]
+      ,[Description]
+  FROM [dbo].[DotNetT]";
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
+SqlAdater Name4 = new SqlAdater();
+
+DataTable Name5 = new DataTable();
+Name4.fill(Name5);
+
+Name2.Close();
+
+foreach(DataRow Name6 in Name5.Rows)
+{
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+}
+
+And this function called in Program.cs
+
+AdoDotNetExamples(file name) Name1 = new AdoDotNetExamples();
+Name1.Read(); //(Don't need Parameter)
