@@ -84,7 +84,7 @@ foreach(DataRow Name6 in Name5.Rows)
 
 For AdoDotNet
 
- DOn't  need to add Package 
+Don't  need to add Package 
 
 
 FOR READ (Don't need Parameter)
@@ -129,7 +129,192 @@ foreach(DataRow Name6 in Name5.Rows)
 	Console.WriteLine(Name6[filed]);
 }
 
+
+FOR Edit (int id )Need id Parameter 
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"SELECT [Id]
+      ,[Name]
+      ,[Address]
+      ,[Description]
+  FROM [dbo].[DotNetT] Where [Id]=@Id";
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
+Name3.Parameters.AddWithValue(Id=id);
+SqlAdater Name4 = new SqlAdater();
+
+DataTable Name5 = new DataTable();
+Name4.fill(Name5);
+
+Name2.Close();
+
+if (Name5.Rows.Count==0)
+{
+	COnsole.WriteLine("No Data Found");
+}
+
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+	Console.WriteLine(Name6[filed]);
+
+FOR Create (need more parameter )Don't need id Parameter 
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"INSERT INTO [dbo].[DotNetT]
+           ([Name]
+           ,[Address]
+           ,[Description])
+     VALUES
+           (@Name
+           ,@Address
+           ,@Description);
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
+Name3.Parameters.AddWithValue(Name=Name);
+Name3.Parameters.AddWithValue(Address=Address);
+Name3.Parameters.AddWithValue(Description=Description);
+
+int result=Name3.ExecuteNonQuery();
+
+Name2.Close();
+
+string message = result >0? "Successful":"Failed";
+Console.WriteLine(message);
+
+FOR Update (need all parameter )
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"UPDATE [dbo].[DotNetT]
+   SET [Name] = @Name>
+      ,[Address] = @Address>
+      ,[Description] = @Address>
+ WHERE [Id]=@Id";
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
+
+Name3.Parameters.AddWithValue(Id=Id);
+Name3.Parameters.AddWithValue(Name=Name);
+Name3.Parameters.AddWithValue(Address=Address);
+Name3.Parameters.AddWithValue(Description=Description);
+
+int result=Name3.ExecuteNonQuery();
+
+Name2.Close();
+
+string message = result >0? "Successful":"Failed";
+Console.WriteLine(message);
+
+
+FOR Delete (need id parameter )
+
+SqlConnectionStringBuilder connect DataBase and Table
+
+1)SqlConnectionStringBuilder Name1 = new SqlConnectionStringBuilder;
+
+**Add Database
+
+Name1.DataSource = DataBase;
+Name1.InitalCatalog =Table Name;
+Name1.UserID =User Name;
+Name1.Password =Password;
+
+
+2)Build Connection
+
+4)select data from table
+string query = @"DELETE FROM [dbo].[DotNetT]
+      WHERE [Id]=@Id"";
+
+SqlConnection Name2 = new SqlCOnnection(Name1,ConnectionString);
+Name2.Open();
+
+3)Command
+SqlCommand Name3 = new SqlCommand(query,Name2);//need where table
+Name3.Parameters.AddWithValue(Id=Id);
+int result=Name3.ExecuteNonQuery();
+
+Name2.Close();
+
+string message = result >0? "Successful":"Failed";
+Console.WriteLine(message);
+
+
 And this function called in Program.cs
 
 AdoDotNetExamples(file name) Name1 = new AdoDotNetExamples();
 Name1.Read(); //(Don't need Parameter)
+Name1.Edit(1); //(Don't need Parameter)
+Name1.Create(" "," "," ");
+Name1.Update(" "," "," "," ");
+Name1.Delete(1);
+
+
+
+For Dapper
+need Dapper nuget package
+
+create Models 
+public int  Id { get; set;}(need data type)
+
+In Dapper 
+
+create private readonly function SqlConnectionStringBuilder
+
+For Read()
+{
+
+}
