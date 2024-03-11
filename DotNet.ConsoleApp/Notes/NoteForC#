@@ -316,5 +316,26 @@ create private readonly function SqlConnectionStringBuilder
 
 For Read()
 {
+string query=@"Select";
+using IDbconnection Name1 = new SqlConnection(SqlConnectionStringBuilder,ConnectionString);
+List<Model> Name = Name1.Query<Model>.query.Tolist();
+foreach(Model Name2 in Name)
+{
+    Console.Writeline(Name2.id);
+}
 
 }
+Edit => need id parameter 
+ create string query 
+ using IDbconnection
+ list
+don't use List (use FirstOrDefault)
+
+Create => need more parameters(don't need id parameter)
+
+mapping or create model
+Model Name = new Model()
+{
+
+}
+Create is Eual to Update and Delete
