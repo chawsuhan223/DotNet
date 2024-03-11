@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace DotNet.ConsoleApp.Models
 {
-    //[Table("DotNetT")]
-    public class Model
+    [Table("DotNetT")]
+    public class TestModel
     {
-        //[Key]
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
 
-      
+
 
     }
 }

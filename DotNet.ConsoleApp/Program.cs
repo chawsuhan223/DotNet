@@ -4,6 +4,7 @@
 //ConnectionStringBuilder
 using DotNet.ConsoleApp.AdoDotNet;
 using DotNet.ConsoleApp.Dapper;
+using DotNet.ConsoleApp.EFCore;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -62,7 +63,7 @@ using System.Data.SqlClient;
 //}
 
 //AdoDotNet
-AdoDotNetExamples AdoDotNet = new AdoDotNetExamples();
+//AdoDotNetExamples AdoDotNet = new AdoDotNetExamples();
 //AdoDotNet.Read();
 //AdoDotNet.Edit(1);
 //AdoDotNet.Edit(6);
@@ -72,10 +73,15 @@ AdoDotNetExamples AdoDotNet = new AdoDotNetExamples();
 //AdoDotNet.Delete(6);
 
 //Dapper
-DapperExamples Dapper = new DapperExamples();
+//DapperExamples Dapper = new DapperExamples();
 //Dapper.Read();
 //Dapper.Edit(1);
 //Dapper.Edit(6);
 //Dapper.Create("Hla Hla", "Hlaing", "Oil");
 //Dapper.Update(7,"Kyaw Kyaw", "SanChaung", "T-Shirt");
-Dapper.Delete(7);
+//Dapper.Delete(7);
+
+//EFCore
+EFCoreExamples Efcore = new EFCoreExamples();
+//Efcore.Read();
+//Efcore.Edit(1);
