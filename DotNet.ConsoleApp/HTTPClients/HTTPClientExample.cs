@@ -10,22 +10,20 @@ namespace DotNet.ConsoleApp.HTTPClients
 {
     public class HTTPClientExample
     {
-
         public async Task Run()
         {
             //await Read();
-            await ReadJSonPlaceHolder();
+            await Edit(1);
+            await Edit(10);
         }
-
-        private async Task Read()
+        private async Task Read()//Read
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7248/api/Model");
-            if (response.IsSuccessStatusCode)//200 t0 299
+            HttpClient client = new HttpClient();//get data
+            HttpResponseMessage response=await client.GetAsync("https://localhost:7248/api/Model");//endpoint
+            if(response.IsSuccessStatusCode)
             {
-                string jsonStr = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(jsonStr);
-                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(jsonStr)!;
+                string json = await response.Content.ReadAsStringAsync();//get as string
+                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(json);//json to C#
                 foreach (TestModel item in lst)
                 {
                     Console.WriteLine(item.Id);
@@ -33,28 +31,32 @@ namespace DotNet.ConsoleApp.HTTPClients
                     Console.WriteLine(item.Address);
                     Console.WriteLine(item.Description);
                 }
+     
             }
-        }
-
-            private async Task ReadJSonPlaceHolder()
+            else
             {
-                HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("https://jsonplaceholder.typicode.com/posts");
-                if (response.IsSuccessStatusCode)//200 t0 299
-                {
-                    string jsonStr = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(jsonStr);
-
-                    List<JSonPlaceHolderModel> lst = JsonConvert.DeserializeObject<List<JSonPlaceHolderModel>>(jsonStr)!;
-                    foreach (JSonPlaceHolderModel item in lst)
-                    {
-                        Console.WriteLine(item.userId);
-                        Console.WriteLine(item.id);
-                        Console.WriteLine(item.title);
-                        Console.WriteLine(item.body);
-                    }
-                }
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
+        }//Read
+        private async Task Edit(int id)//Edit
+        {
+            string url = $"https://localhost:7248/api/Model/{id}";
+            HttpClient client = new HttpClient();//get data
+            HttpResponseMessage response = await client.GetAsync(url);//endpoint
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();//get as string
+                TestModel item = JsonConvert.DeserializeObject<TestModel>(json)!;//json to C#
 
+                    Console.WriteLine(item.Id);
+                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.Address);
+                    Console.WriteLine(item.Description);
+            }
+            else
+            {
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+        }//Edit
     }
-    }
+}

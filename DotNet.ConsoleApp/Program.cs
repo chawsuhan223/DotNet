@@ -8,6 +8,8 @@ using DotNet.ConsoleApp.EFCore;
 using System.Data;
 using System.Data.SqlClient;
 using DotNet.ConsoleApp.HTTPClients;
+using DotNet.ConsoleApp.Models;
+using Newtonsoft.Json;
 
 //Using Query
 //SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
@@ -87,9 +89,30 @@ using DotNet.ConsoleApp.HTTPClients;
 //Efcore.Read();
 //Efcore.Edit(1);
 
-Console.WriteLine("Waiting For API....");
-Console.ReadKey();
+//Console.WriteLine("Waiting For API....");
+//Console.ReadKey();
 //Console.WriteLine("Hello World");
+//HTTPClientExample hTTPClient = new HTTPClientExample();
+//await hTTPClient.Run();
+
+//TestModel test = new TestModel();
+//test.Name = "TestName";
+//test.Description = "TestDescription";
+//test.Address = "TestAddress";
+
+//string jSOn=JsonConvert.SerializeObject(test);//C# to JSON
+//Console.WriteLine(test);
+//Console.WriteLine(jSOn);
+//Console.WriteLine(test.Name);
+//Console.WriteLine(test.Description);
+//Console.WriteLine(test.Address);
+
+//TestModel model2 = JsonConvert.DeserializeObject<TestModel>(jSOn);
+//Console.WriteLine(model2.Name);
+//Console.WriteLine(model2.Description);
+//Console.WriteLine(model2.Address);
+
+Console.WriteLine("Hello World");
 HTTPClientExample hTTPClient = new HTTPClientExample();
 await hTTPClient.Run();
 
