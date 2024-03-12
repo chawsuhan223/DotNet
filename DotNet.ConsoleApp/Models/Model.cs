@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DotNet.ConsoleApp.Models
 {
-    //[Table("DotNetT")]
+    [Table("DotNetT")]
     public class Model
     {
-        //[Key]
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -20,4 +20,5 @@ namespace DotNet.ConsoleApp.Models
       
 
     }
+
 }

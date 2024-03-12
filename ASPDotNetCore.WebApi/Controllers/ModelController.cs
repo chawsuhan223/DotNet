@@ -40,7 +40,7 @@ namespace ASPDotNetCore.WebApi.Controllers
             string message = result > 0 ? "Creating Successful" : "Creating Failed";
             return Ok(message);
         }
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateTest(int id,Model model)
         {
             Model? item = _db.TestModel.FirstOrDefault(item =>item.Id==id);

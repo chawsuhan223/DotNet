@@ -7,6 +7,7 @@ using DotNet.ConsoleApp.Dapper;
 using DotNet.ConsoleApp.EFCore;
 using System.Data;
 using System.Data.SqlClient;
+using DotNet.ConsoleApp.HTTPClients;
 
 //Using Query
 //SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
@@ -82,6 +83,14 @@ using System.Data.SqlClient;
 //Dapper.Delete(7);
 
 //EFCore
-EFCoreExamples Efcore = new EFCoreExamples();
+//EFCoreExamples Efcore = new EFCoreExamples();
 //Efcore.Read();
 //Efcore.Edit(1);
+
+Console.WriteLine("Waiting For API....");
+Console.ReadKey();
+//Console.WriteLine("Hello World");
+HTTPClientExample hTTPClient = new HTTPClientExample();
+await hTTPClient.Run();
+
+Console.ReadKey();

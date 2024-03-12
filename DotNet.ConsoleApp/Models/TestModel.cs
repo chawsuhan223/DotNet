@@ -16,8 +16,19 @@ namespace DotNet.ConsoleApp.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
-
-
-
     }
+
+
+
+    public class JSonPlaceHolderModel
+    {
+        public int userId { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+    }
+
+
+
 }
+
