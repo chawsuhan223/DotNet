@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,9 @@ namespace DotNet.ConsoleApp.HTTPClients
         public async Task Run()
         {
             //await Read();
-            await Edit(1);
-            await Edit(10);
+            //await Edit(1);
+            // await Edit(10);
+            await Create("CSH", "Yamethin", "Snack");
         }
         private async Task Read()//Read
         {
@@ -38,6 +40,7 @@ namespace DotNet.ConsoleApp.HTTPClients
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
         }//Read
+
         private async Task Edit(int id)//Edit
         {
             string url = $"https://localhost:7248/api/Model/{id}";
@@ -58,5 +61,29 @@ namespace DotNet.ConsoleApp.HTTPClients
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
         }//Edit
+
+        private async Task Create(string Name,string Address,string Description)//Create
+        {
+            TestModel testModel = new TestModel()
+            {
+                Name = Name,
+                Address=Address,
+                Description = Description,
+            };
+            string JSON = JsonConvert.SerializeObject(testModel);
+            HttpContent content = new StringContent(JSON, Encoding.UTF8, MediaTypeNames.Application.Json);
+            string url = $"https://localhost:7248/api/Model";
+            HttpClient client = new HttpClient();//get data
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();//get as string
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+        }//Create
     }
 }
