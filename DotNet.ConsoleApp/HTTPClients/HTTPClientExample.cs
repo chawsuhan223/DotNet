@@ -18,6 +18,7 @@ namespace DotNet.ConsoleApp.HTTPClients
             // await Edit(10);
             //await Create("CSH", "Yamethin", "Snack");
             //await Update(1004, "KHL", "Mandalay", "Bread");
+            await Delete(1004);
         }
         private async Task Read()//Read
         {
@@ -111,5 +112,21 @@ namespace DotNet.ConsoleApp.HTTPClients
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
         }//Update
+
+        private async Task Delete(int id)//Delete
+        {
+            string url = $"https://localhost:7248/api/Model/{id}";
+            HttpClient client = new HttpClient();//get data
+            HttpResponseMessage response = await client.DeleteAsync(url);//endpoint
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();//get as string
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+        }//Delete
     }
 }
