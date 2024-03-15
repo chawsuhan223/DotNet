@@ -57,7 +57,7 @@ namespace ASPDotNetCore.WebApi.Controllers
             return Ok(message);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteTest(int id , Model model)
+        public IActionResult DeleteTest(int id)
         {
             
             Model? item = _db.TestModel.FirstOrDefault(item => item.Id == id);
