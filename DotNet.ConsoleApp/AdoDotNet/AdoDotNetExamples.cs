@@ -163,3 +163,5 @@ namespace DotNet.ConsoleApp.AdoDotNet
         }//Delete
     }
 }
+
+//AdoDotNet is use ExecuteNonQuery
