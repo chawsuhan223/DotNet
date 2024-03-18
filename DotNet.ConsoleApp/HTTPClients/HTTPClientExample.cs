@@ -13,12 +13,12 @@ namespace DotNet.ConsoleApp.HTTPClients
     {
         public async Task Run()
         {
-            //await Read();
+            await Read();
             //await Edit(1);
             // await Edit(10);
             //await Create("CSH", "Yamethin", "Snack");
             //await Update(1004, "KHL", "Mandalay", "Bread");
-            await Delete(1004);
+            //await Delete(1004);
         }
         private async Task Read()//Read
         {
@@ -27,7 +27,7 @@ namespace DotNet.ConsoleApp.HTTPClients
             if(response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();//get as string
-                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(json);//json to C#
+                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(json)!;//json to C#
                 foreach (TestModel item in lst)
                 {
                     Console.WriteLine(item.Id);

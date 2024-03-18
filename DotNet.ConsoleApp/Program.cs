@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using DotNet.ConsoleApp.HTTPClients;
 using DotNet.ConsoleApp.Models;
 using Newtonsoft.Json;
+using DotNet.ConsoleApp.RestClients;
 
 //Using Query
 //SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
@@ -112,8 +113,11 @@ using Newtonsoft.Json;
 //Console.WriteLine(model2.Description);
 //Console.WriteLine(model2.Address);
 
-Console.WriteLine("Hello World");
-HTTPClientExample hTTPClient = new HTTPClientExample();
-await hTTPClient.Run();
+//Console.WriteLine("Hello World");
+//HTTPClientExample hTTPClient = new HTTPClientExample();
+//await hTTPClient.Run();
+Console.WriteLine("Hello");
+RestClientExamples restClientExamples = new RestClientExamples();
+await restClientExamples.Run();
 
 Console.ReadKey();

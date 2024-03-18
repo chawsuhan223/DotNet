@@ -1,5 +1,6 @@
 ﻿using DotNet.ConsoleApp.Models;
 using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +12,27 @@ namespace DotNet.ConsoleApp.RestClients
 {
     public class RestClientExamples
     {
+        private readonly string url = "https://localhost:7248/api/Model";//7248
         public async Task Run()
         {
-            //await Read();
+            await Read();
             //await Edit(1);
             // await Edit(10);
             //await Create("CSH", "Yamethin", "Snack");
             //await Update(1004, "KHL", "Mandalay", "Bread");
-            await Delete(1004);
+            //await Delete(1004);
         }
+
         private async Task Read()//Read
         {
-            HttpClient client = new HttpClient();//get data
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7248/api/Model");//endpoint
+            RestRequest request = new RestRequest(url,Method.Get);
+            RestClient client = new RestClient(); //Get data
+            //client.GetAsync//for Method Get
+             RestResponse response =await client.ExecuteAsync(request);//for all Method
             if (response.IsSuccessStatusCode)
             {
-                string json = await response.Content.ReadAsStringAsync();//get as string
-                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(json);//json to C#
+                string json = response.Content!;//get as string
+                List<TestModel> lst = JsonConvert.DeserializeObject<List<TestModel>>(json)!;//json to C#
                 foreach (TestModel item in lst)
                 {
                     Console.WriteLine(item.Id);
@@ -39,18 +44,19 @@ namespace DotNet.ConsoleApp.RestClients
             }
             else
             {
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.WriteLine( response.Content!);
             }
         }//Read
 
         private async Task Edit(int id)//Edit
         {
-            string url = $"https://localhost:7248/api/Model/{id}";
-            HttpClient client = new HttpClient();//get data
-            HttpResponseMessage response = await client.GetAsync(url);//endpoint
+            string url1 = $"{url}/{id}";
+            RestRequest request = new RestRequest(url1, Method.Get);
+            RestClient client = new RestClient(); //Get data
+            RestResponse response = await client.ExecuteAsync(request);//for all Method
             if (response.IsSuccessStatusCode)
             {
-                string json = await response.Content.ReadAsStringAsync();//get as string
+                string json =response.Content!;//get as string
                 TestModel item = JsonConvert.DeserializeObject<TestModel>(json)!;//json to C#
 
                 Console.WriteLine(item.Id);
@@ -60,7 +66,7 @@ namespace DotNet.ConsoleApp.RestClients
             }
             else
             {
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.WriteLine( response.Content);
             }
         }//Edit
 
@@ -72,19 +78,18 @@ namespace DotNet.ConsoleApp.RestClients
                 Address = Address,
                 Description = Description,
             };
-            string JSON = JsonConvert.SerializeObject(testModel);
-            HttpContent content = new StringContent(JSON, Encoding.UTF8, MediaTypeNames.Application.Json);
-            string url = $"https://localhost:7248/api/Model";
-            HttpClient client = new HttpClient();//get data
-            HttpResponseMessage response = await client.PostAsync(url, content);
+            RestRequest request = new RestRequest(url, Method.Post);
+            request.AddJsonBody(testModel);
+            RestClient client = new RestClient(); //Get data
+            RestResponse response = await client.ExecuteAsync(request);//for all Method
             if (response.IsSuccessStatusCode)
             {
-                string json = await response.Content.ReadAsStringAsync();//get as string
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                //string json = response.Content!;//get as string
+                Console.WriteLine( response.Content);
             }
             else
             {
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.WriteLine(response.Content);
             }
         }//Create
 
@@ -97,35 +102,36 @@ namespace DotNet.ConsoleApp.RestClients
                 Address = Address,
                 Description = Description,
             };
-            string JSON = JsonConvert.SerializeObject(testModel);
-            HttpContent content = new StringContent(JSON, Encoding.UTF8, MediaTypeNames.Application.Json);
-            string url = $"https://localhost:7248/api/Model/{id}";
-            HttpClient client = new HttpClient();//get data
-            HttpResponseMessage response = await client.PutAsync(url, content);
+           
+            string url1 = $"{url}/{id}";
+            RestRequest request = new RestRequest(url1, Method.Put);
+            RestClient client = new RestClient(); //Get data
+            RestResponse response = await client.ExecuteAsync(request);//for all Method
             if (response.IsSuccessStatusCode)
             {
-                string json = await response.Content.ReadAsStringAsync();//get as string
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                //string json = response.Content!;//get as string
+                Console.WriteLine(response.Content);
             }
             else
             {
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.WriteLine(response.Content);
             }
         }//Update
 
         private async Task Delete(int id)//Delete
         {
-            string url = $"https://localhost:7248/api/Model/{id}";
-            HttpClient client = new HttpClient();//get data
-            HttpResponseMessage response = await client.DeleteAsync(url);//endpoint
+            string url1 = $"{url}/{id}";
+            RestRequest request = new RestRequest(url1, Method.Delete);
+            RestClient client = new RestClient(); //Get data
+            RestResponse response = await client.ExecuteAsync(request);//for all Method
             if (response.IsSuccessStatusCode)
             {
-                string json = await response.Content.ReadAsStringAsync();//get as string
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                //string json = response.Content!;//get as string
+                Console.WriteLine(response.Content);
             }
             else
             {
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.WriteLine(response.Content);
             }
         }//Delete
     }
