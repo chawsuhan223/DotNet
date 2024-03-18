@@ -22,13 +22,20 @@ namespace DotNetTestApi.WebAPi.Controllers
                 string JSON = await response.Content.ReadAsStringAsync();
                 List<BirdDataModel> birds = JsonConvert.DeserializeObject<List<BirdDataModel>>(JSON);
                 //return Ok(JSON);
-                List<BirdViewModel> lst = birds.Select(bird => new BirdViewModel
+                //List<BirdViewModel> lst = birds.Select(bird => new BirdViewModel
+                //{
+                //    BirdId = bird.Id,
+                //    BirdName = bird.BirdMyanmarName,
+                //    PhotoURL = $"https://burma-project-ideas.vercel.app/{bird.ImagePath}",
+                //    Des = bird.Description,
+                //}).ToList();
+                //List<BirdViewModel> lst = birds.Select(bird => Change(bird)).ToList();
+                List<BirdViewModel> lst = new List<BirdViewModel>();
+                foreach(var bird in birds)
                 {
-                    BirdId = bird.Id,
-                    BirdName = bird.BirdMyanmarName,
-                    PhotoURL = $"https://burma-project-ideas.vercel.app/{bird.ImagePath}",
-                    Des = bird.Description,
-                }).ToList();
+                   BirdViewModel item= Change(bird);
+                    lst.Add(item);
+                }
 
                 return Ok(lst);
             }
@@ -58,13 +65,14 @@ namespace DotNetTestApi.WebAPi.Controllers
             {
                 string JSON = await response.Content.ReadAsStringAsync();
                 BirdDataModel bird = JsonConvert.DeserializeObject<BirdDataModel>(JSON);
-               var lst = new BirdViewModel
-                {
-                    BirdId = bird.Id,
-                    BirdName = bird.BirdMyanmarName,
-                    PhotoURL = $"https://burma-project-ideas.vercel.app/{bird.ImagePath}",
-                    Des = bird.Description,
-                };
+                //var lst = new BirdViewModel
+                // {
+                //     BirdId = bird.Id,
+                //     BirdName = bird.BirdMyanmarName,
+                //     PhotoURL = $"https://burma-project-ideas.vercel.app/{bird.ImagePath}",
+                //     Des = bird.Description,
+                // };
+                var lst = Change(bird);
 
                 return Ok(lst);
             }
@@ -72,6 +80,17 @@ namespace DotNetTestApi.WebAPi.Controllers
             {
                 return BadRequest();
             }
+        }
+        private BirdViewModel Change(BirdDataModel bird)
+        {
+            var lst = new BirdViewModel
+            {
+                BirdId = bird.Id,
+                BirdName = bird.BirdMyanmarName,
+                PhotoURL = $"https://burma-project-ideas.vercel.app/{bird.ImagePath}",
+                Des = bird.Description,
+            };
+            return lst;
         }
 
     }
