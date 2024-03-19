@@ -1,6 +1,7 @@
 ﻿using DotNet.ConsoleApp.Models;
 using Microsoft.Identity.Client;
 using Refit;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,12 @@ namespace DotNet.ConsoleApp.RefitExamples
         public async Task Run()
         {
             //await Read();
-            await Edit(1);
-            await Edit(0);
+            //await Edit(1);
+            //await Edit(0);
+            //await Create("Test","Test","Test");
+            //await Update(1004, "Test2", "Test2", "Test2");
+            //await Update(1005, "Test2", "Test2", "Test2");
+            await Delete(1005);
         }
 
         private async Task Read()
@@ -61,5 +66,76 @@ namespace DotNet.ConsoleApp.RefitExamples
                 Console.WriteLine(ex.ToString());//404 Not Found
             }
         }
+
+        private async Task Create(string Name, string Address, string Description)//Create
+        {
+            Model model = new Model()
+            {
+                Name = Name,
+                Address = Address,
+                Description = Description,
+            };
+            try
+            {
+                string message= await refitApi.CreateBlog(model);
+                Console.WriteLine(message);
+  
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());//404 Not Found
+            }
+
+        }//Create
+
+        private async Task Update(int id, string Name, string Address, string Description)//Update
+        {
+            Model model = new Model()
+            {
+                Id = id,
+                Name = Name,
+                Address = Address,
+                Description = Description,
+            };
+            try
+            {
+                string message = await refitApi.UpdateBlog(id,model);
+                Console.WriteLine(message);
+
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());//404 Not Found
+            }
+
+
+        }//Update
+
+        private async Task Delete(int id)//Delete
+        {
+            try
+            {
+                string message = await refitApi.DeleteBlog(id);
+                Console.WriteLine(message);
+
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.Content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());//404 Not Found
+            }
+
+        }//Delete
     }
 }

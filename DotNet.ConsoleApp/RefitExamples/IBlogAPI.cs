@@ -1,4 +1,5 @@
 ﻿using DotNet.ConsoleApp.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,14 @@ namespace DotNet.ConsoleApp.RefitExamples
 
         [Get("/api/Model/{id}")]
         Task<TestModel> GetBlogs(int id);
+
+        [Post("/api/Model")]
+        Task<String> CreateBlog(Model model);
+
+        [Put("/api/Model/{id}")]
+        Task<String> UpdateBlog(int id, Model model);
+
+        [Delete("/api/Model/{id}")]
+        Task<String> DeleteBlog(int id);
     }
 }

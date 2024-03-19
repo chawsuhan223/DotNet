@@ -125,7 +125,7 @@ using DotNet.ConsoleApp.RefitExamples;
 
 Console.WriteLine("Hello");
 
-Console.ReadKey();
+//Console.ReadKey();
 
 RefitExample refitExample = new RefitExample();
 
