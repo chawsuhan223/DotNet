@@ -11,6 +11,7 @@ using DotNet.ConsoleApp.HTTPClients;
 using DotNet.ConsoleApp.Models;
 using Newtonsoft.Json;
 using DotNet.ConsoleApp.RestClients;
+using DotNet.ConsoleApp.RefitExamples;
 
 //Using Query
 //SqlConnectionStringBuilder Build = new SqlConnectionStringBuilder();
@@ -116,8 +117,18 @@ using DotNet.ConsoleApp.RestClients;
 //Console.WriteLine("Hello World");
 //HTTPClientExample hTTPClient = new HTTPClientExample();
 //await hTTPClient.Run();
+
+//Console.WriteLine("Hello");
+//RestClientExamples restClientExamples = new RestClientExamples();
+//await restClientExamples.Run();
+
+
 Console.WriteLine("Hello");
-RestClientExamples restClientExamples = new RestClientExamples();
-await restClientExamples.Run();
+
+Console.ReadKey();
+
+RefitExample refitExample = new RefitExample();
+
+await refitExample.Run();
 
 Console.ReadKey();
