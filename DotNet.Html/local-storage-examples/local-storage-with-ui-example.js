@@ -1,8 +1,9 @@
 const dotnetT = 'DotNetT';
+let _blogId='';
 //must use 'let' DOn't use 'var'
 runBlog();
 function runBlog() {
-    //readBlog();
+    readBlog();
     //createBlog('Test3', 'Test4', 'Test5');
     //editBlog('33c8b626-ace0-4d19-8c93-6eb3ff10e56e');
     //editBlog('0');
@@ -18,17 +19,27 @@ function runBlog() {
 }
 function readBlog() {
     let lstBlog = getBlogs();
-
+    $('#tbDataTable').html('');
+    let htmlRow = '';
     for (let i = 0; i < lstBlog.length; i++) {
         const item = lstBlog[i];
-        console.log(item.Name);
-        console.log(item.Address);
-        console.log(item.Description);
-
+        htmlRow += `
+        <tr>
+        <td>
+        <button type="button" class="btn btn-success" onclick="editBlog('${item.Id}')">Edit</button>
+        <button type="button" class="btn btn-danger" onclick="deleteBlog('${item.Id}')">Delete</button>
+        </td>
+            <th scope="row">${i + 1}</th>
+            <td>${item.Name}</td>
+            <td>${item.Address}</td>
+            <td>${item.Description}</td>
+        </tr>`;
+        console.log(htmlRow); 
+        $('#tbDataTable').html(htmlRow);
     }
 }
 function editBlog(id) {
-   
+
     let lstBlog = getBlogs();
     let lst = lstBlog.filter(x => x.Id === id);//generate array //= is not true
     if (lst.length === 0) {
@@ -37,9 +48,14 @@ function editBlog(id) {
     }
     let item = lst[0];
     console.log(item);
+
+    $('#Name').val(item.Name);
+    $('#Address').val(item.Address);
+    $('#Description').val(item.Description);
+    _blogId=item.Id;
 }
 function createBlog(name, address, description) {
-   
+
     let lstBlog = getBlogs();
     const blog = {
         Id: uuidv4(),
@@ -48,7 +64,7 @@ function createBlog(name, address, description) {
         Description: description
     }
     lstBlog.push(blog);
-   
+
     setLocalStorage(lstBlog);
 
 
@@ -71,6 +87,10 @@ function updateBlog(id,name,address,description) {
     setLocalStorage(lstBlog);
 }
 function deleteBlog(id) {
+    let result=confirm ('Are you sure want to delete?');
+    if(result===false) return;
+    //if(!result)return;
+    //if(result===true){
     let lstBlog = getBlogs();
     let lst = lstBlog.filter(x => x.Id === id);
     if (lst.length === 0) {
@@ -79,7 +99,9 @@ function deleteBlog(id) {
     }
     lstBlog = lstBlog.filter(x => x.Id !== id);
     setLocalStorage(lstBlog);
+    readBlog();
 }
+//}
 function uuidv4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -93,8 +115,29 @@ function getBlogs() {
     }
     return lstBlogs;
 }
-function setLocalStorage(blogs)
-{
+function setLocalStorage(blogs) {
     let jsonStr = JSON.stringify(blogs);
     localStorage.setItem(dotnetT, jsonStr);
 }
+$('#btnSave').click(function () {
+    const name = $('#Name').val();
+    const address = $('#Address').val();
+    const description = $('#Description').val();
+    if(_blogId === '')
+    {
+        createBlog(name, address, description);
+        alert('Saving Successful');
+    }
+    else{
+        updateBlog(_blogId,name,address,description);
+        alert('Updating Successful');
+        _blogId='';
+    }
+
+    $('#Name').val('');
+    $('#Address').val('');
+    $('#Description').val('');
+    $('#Name').focus();
+
+    readBlog();
+})
