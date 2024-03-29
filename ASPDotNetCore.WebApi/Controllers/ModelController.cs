@@ -9,7 +9,7 @@ namespace ASPDotNetCore.WebApi.Controllers
     [ApiController]
     public class ModelController : ControllerBase
     {
-        //Read => Get / Create => post / Update => Patch / Delete => Delete / Edit => Get
+        //Read => Get / Create => post / Update => Put / Delete => Delete / Edit => Get
 
         private readonly AppDbContent _db;
         public ModelController()

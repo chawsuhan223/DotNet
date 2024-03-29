@@ -88,14 +88,12 @@ function updateBlog(id, name, address, description) {
 }
 function deleteBlog(id) {
 
-    Swal.fire({
-        title: "Confirm",
-        text: "Are you sure want to delete?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Yes"
-    }).then((result) => {
-        if (result.isConfirmed) {
+    Notiflix.Confirm.show(
+        'Confirm',
+        'Are you sure delete it?',
+        'Yes',
+        'No',
+        function okCb() {
             let lstBlog = getBlogs();
             let lst = lstBlog.filter(x => x.Id === id);
             if (lst.length === 0) {
@@ -106,29 +104,18 @@ function deleteBlog(id) {
             setLocalStorage(lstBlog);
             successMessage('Deleting Successful');
             readBlog();
-        }
+        },
+        function cancelCb() {
 
-    })
+        })
+
+
+
 }
 
 
 
 
-// let result = confirm('Are you sure want to delete?');
-// if (result === false) return;
-// //if(!result)return;
-// //if(result===true){
-// let lstBlog = getBlogs();
-// let lst = lstBlog.filter(x => x.Id === id);
-// if (lst.length === 0) {
-//     console.log('No data found');//answer is undefinded
-//     return;
-// }
-// lstBlog = lstBlog.filter(x => x.Id !== id);
-// setLocalStorage(lstBlog);
-// readBlog();
-//}
-//}
 function uuidv4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -151,15 +138,34 @@ $('#btnSave').click(function () {
     const address = $('#Address').val();
     const description = $('#Description').val();
     if (_blogId === '') {
-        createBlog(name, address, description);
-        //alert('Saving Successful');
-        successMessage('Saving Successful');
+        NotiFlix.Loading.circle();
+        setTimeout(()=>{
+            createBlog(name, address, description);
+            //alert('Saving Successful');
+            NotiFlix.Loading.remove();
+            successMessage('Saving Successful');
+        },3000
+
+        )
+
+       
     }
     else {
         updateBlog(_blogId, name, address, description);
         //alert('Updating Successful');
         successMessage('Updating Successful');
         _blogId = '';
+
+        // Loading.circle();
+        // setTimeout(()=>{
+        //     updateBlog(_blogId, name, address, description);
+        //     //alert('Saving Successful');
+        //     Loading.remove();
+        //     successMessage('Updating Successful');
+        //     _blogId = '';
+        // },3000
+
+        // )
     }
 
     $('#Name').val('');
@@ -171,11 +177,12 @@ $('#btnSave').click(function () {
 
 })
 function successMessage(message) {
-    Swal.fire({
-        title: "Success",
-        text: message,
-        icon: "success"
-    })
+    //Notiflix.Notify.success(message);
+    Notiflix.Report.success(
+        'Success',
+        message,
+        'Okay',
+    );
 }
 
 
