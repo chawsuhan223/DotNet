@@ -94,16 +94,34 @@ function deleteBlog(id) {
         'Yes',
         'No',
         function okCb() {
-            let lstBlog = getBlogs();
-            let lst = lstBlog.filter(x => x.Id === id);
-            if (lst.length === 0) {
-                console.log('No data found');//answer is undefinded
-                return;
-            }
-            lstBlog = lstBlog.filter(x => x.Id !== id);
-            setLocalStorage(lstBlog);
-            successMessage('Deleting Successful');
-            readBlog();
+
+            Notiflix.Block.standard('#frm1')
+            setTimeout(() => {
+
+                let lstBlog = getBlogs();
+                let lst = lstBlog.filter(x => x.Id === id);
+                if (lst.length === 0) {
+                    console.log('No data found');//answer is undefinded
+                    return;
+                }
+                lstBlog = lstBlog.filter(x => x.Id !== id);
+                setLocalStorage(lstBlog);
+                successMessage('Deleting Successful');
+                readBlog();
+
+            }, 3000);
+            Notiflix.Block.remove('#frm1');
+
+            // let lstBlog = getBlogs();
+            // let lst = lstBlog.filter(x => x.Id === id);
+            // if (lst.length === 0) {
+            //     console.log('No data found');//answer is undefinded
+            //     return;
+            // }
+            // lstBlog = lstBlog.filter(x => x.Id !== id);
+            // setLocalStorage(lstBlog);
+            // successMessage('Deleting Successful');
+            // readBlog();
         },
         function cancelCb() {
 
@@ -138,34 +156,28 @@ $('#btnSave').click(function () {
     const address = $('#Address').val();
     const description = $('#Description').val();
     if (_blogId === '') {
-        NotiFlix.Loading.circle();
-        setTimeout(()=>{
-            createBlog(name, address, description);
-            //alert('Saving Successful');
-            NotiFlix.Loading.remove();
-            successMessage('Saving Successful');
-        },3000
-
-        )
-
-       
+        //Notiflix.Loading.circle();
+        //setTimeout(() => {
+        createBlog(name, address, description);
+        //alert('Saving Successful');
+        //Notiflix.Loading.remove();
+        successMessage('Saving Successful');
+        // }, 3000)
     }
     else {
+        // updateBlog(_blogId, name, address, description);
+        // //alert('Updating Successful');
+        // successMessage('Updating Successful');
+        // _blogId = '';
+
+        //Notiflix.Loading.circle();
+        //setTimeout(() => {
         updateBlog(_blogId, name, address, description);
-        //alert('Updating Successful');
+        //alert('Saving Successful');
+        // Notiflix.Loading.remove();
         successMessage('Updating Successful');
         _blogId = '';
-
-        // Loading.circle();
-        // setTimeout(()=>{
-        //     updateBlog(_blogId, name, address, description);
-        //     //alert('Saving Successful');
-        //     Loading.remove();
-        //     successMessage('Updating Successful');
-        //     _blogId = '';
-        // },3000
-
-        // )
+        //}, 3000)
     }
 
     $('#Name').val('');
