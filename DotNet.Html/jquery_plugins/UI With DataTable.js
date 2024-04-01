@@ -8,6 +8,15 @@ let _blogId = '';
 //     createBlog('name'+ no,'address'+no,`description ${no}`)
 
 // }
+//runBlog();
+
+// for (let i = 0; i < 100; i++) {
+//     let no=i+1;
+
+//     createBlog('name'+ no,'address'+no,`description ${no}`)
+
+// }
+
 function generateData(rowcount) {
     for (let i = 0; i < rowcount; i++) {
         let no = i + 1;
@@ -51,6 +60,9 @@ function readBlog() {
         </tr>`;
         console.log(htmlRow);
         $('#tbDataTable').html(htmlRow);
+        //$('#datatable')
+        //new DataTable('#datatable');
+        new DataTable('#datatable');
     }
 }
 function editBlog(id) {
